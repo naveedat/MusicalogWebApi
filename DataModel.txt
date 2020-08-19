@@ -1,0 +1,52 @@
+USE master;
+GO
+
+IF DB_ID (N'AlbumStore') IS NOT NULL
+DROP DATABASE AlbumStore;
+GO
+
+CREATE DATABASE AlbumStore;
+GO
+ 
+ 
+USE AlbumStore 
+ 
+GO 
+ 
+CREATE TABLE Album 
+  ( 
+     Id   BIGINT IDENTITY(1, 1) NOT NULL, 
+     Name NVARCHAR(50) NOT NULL, 
+	 Artist NVARCHAR(100) NOT NULL, 
+	 Type NVARCHAR(50) NOT NULL, 
+	 Stock BIT NOT NULL DEFAULT 0, 
+     PRIMARY KEY (Id) 
+  ) 
+ 
+GO 
+ 
+CREATE TABLE AlbumInfo 
+  ( 
+     AlbumId      BIGINT NOT NULL, 
+     Label NVARCHAR(100) NULL, 
+     PRIMARY KEY (AlbumId), 
+     FOREIGN KEY (AlbumId) REFERENCES Album(Id) 
+  ) 
+ 
+GO 
+
+
+INSERT INTO Album
+VALUES
+('Folklore', 'Taylor Swift', 'CD', 1),
+('Nevermind', 'Nirvana', 'vinyl', 1),
+('OK Computer', 'Radiohead', 'CD', 0),
+('Whoosh', 'Deep Purple', 'vinyl', 1)
+
+INSERT INTO AlbumInfo
+VALUES
+(1, 'Republic'),
+(2, 'DGC'),
+(3, '‎Capitol'),
+(4, 'Deep Purple – Whoosh!')
+
